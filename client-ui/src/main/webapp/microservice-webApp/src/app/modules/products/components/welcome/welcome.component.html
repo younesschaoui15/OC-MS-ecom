@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="row">
+    <ng-container *ngFor="let p of (_products$ | async)">
+      <div class="col-4">
+        <nz-card [routerLink]="['/welcome/p', p.id]" nzHoverable [nzCover]="coverTemplate">
+          <nz-card-meta [nzTitle]="p.titre"
+                        [nzDescription]="tempDesc">
+          </nz-card-meta>
+          <ng-template #tempDesc>
+            <div class="row">
+              <div class="col-12">
+                {{p.prix | currency: 'USD'}}
+              </div>
+              <div class="col-12">
+                {{p.description}}
+              </div>
+            </div>
+          </ng-template>
+        </nz-card>
+        <ng-template #coverTemplate>
+          <img alt="example" [src]="p.image"/>
+        </ng-template>
+      </div>
+    </ng-container>
+  </div>
+</div>

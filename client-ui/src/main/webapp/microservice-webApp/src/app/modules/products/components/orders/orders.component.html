@@ -1,0 +1,30 @@
+<ul nz-list [nzDataSource]="orders" nzBordered nzSize="large">
+  <nz-list-header>Orders</nz-list-header>
+  <li nz-list-item *ngFor="let order of orders" nzNoFlex>
+    <ul nz-list-item-actions>
+      <nz-list-item-action>
+        <button (click)="onShowPaymentModal(order)"
+                [disabled]="order.commandePayee"
+                nz-button class="btn btn-success">
+          Pay
+        </button>
+      </nz-list-item-action>
+    </ul>
+    {{ order.id }} - {{order.dateCommande | date: 'short'}} - {{order.quantite}} article(s) - [{{order.commandePayee ? 'Paid' : 'Unpaid'}}]
+  </li>
+  <nz-list-footer>
+
+  </nz-list-footer>
+</ul>
+
+<nz-modal [(nzVisible)]="_isVisible"
+          nzTitle="Payment"
+          nzOkText="Pay"
+          (nzOnCancel)="onInitPayment()"
+          (nzOnOk)="onPayment()">
+  <p>Order ID: {{_payment.idCommande}}</p>
+  <p>Total amount: {{_payment.montant}}</p>
+  <p>
+    <input nz-input type="number" placeholder="Card number" [(ngModel)]="_payment.numeroCarte"/>
+  </p>
+</nz-modal>

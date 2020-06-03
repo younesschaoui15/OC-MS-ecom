@@ -1,0 +1,45 @@
+<nz-card style="max-height: 100%" nzHoverable [nzCover]="coverTemplate">
+  <nz-card-meta [nzTitle]="product?.titre"
+                [nzDescription]="tempDesc">
+  </nz-card-meta>
+  <ng-template #tempDesc>
+    <div class="row">
+      <div class="col-12">
+        {{product?.prix | currency: 'USD'}}
+      </div>
+      <div class="col-12">
+        {{product?.description}}
+      </div>
+    </div>
+  </ng-template>
+</nz-card>
+<ng-template #coverTemplate>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6">
+        <img alt="example" [src]="product?.image"/>
+      </div>
+      <div class="col-6">
+        <div class="row mt-3">
+          <div class="col-2">
+            <span>Quantity</span>
+          </div>
+          <div class="col-4">
+            <nz-select [(ngModel)]="order.quantite" class="w-100">
+              <nz-option [nzValue]="1" nzLabel="1"></nz-option>
+              <nz-option [nzValue]="2" nzLabel="2"></nz-option>
+              <nz-option [nzValue]="3" nzLabel="3"></nz-option>
+            </nz-select>
+          </div>
+          <div class="col-4">
+            <button (click)="onOrder()"
+                    [disabled]="!order.quantite"
+                    class="btn btn-outline-info"> <!--nz-button nzType="primary" -->
+              Order this product
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
